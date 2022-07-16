@@ -1,0 +1,107 @@
+import java.util.*;
+import java.time.LocalDateTime;
+import java.io.*;
+
+public class Main {
+public static void main(String[] args) throws IOException{
+	
+Scanner rd=new Scanner(System.in);
+
+System.out.println("Entrez le nom du fichier: \n");
+System.out.print("===>>> ");
+String nomfichier=rd.nextLine();
+File obj=new File(nomfichier);
+
+if(obj.createNewFile()){
+	
+System.out.println("\n\u001B[33mUn nouveau fichier a été créé\u001B[37m\n");
+}else {System.out.println("\n\u001B[33m Le fichier existe déjà\u001B[37m\n");}
+
+		
+int nombre_de_produits;
+
+do{
+System.out.println("Saisissez le nombre de produits (au moins trois) :  \n ");
+System.out.print("===>>> ");
+nombre_de_produits=rd.nextInt();						}while(nombre_de_produits<3);			
+								
+										
+												
+double[] pu=new double[nombre_de_produits];
+
+int[] qtcom=new int[nombre_de_produits];
+
+double[] pl=new double[nombre_de_produits];double[] tr=new double[nombre_de_produits];double[] pap=new double[nombre_de_produits];double[] tot=new double[nombre_de_produits];
+
+int Nbpro=0;
+float PrixTotal=0;			
+int choix=5;
+
+
+PrintWriter wt=new PrintWriter(nomfichier,"UTF-8");
+
+LocalDateTime myObj = LocalDateTime.now();
+   
+wt.println("****************| FACTURE |****************\n\n");		
+wt.println(" le temps: "+myObj);							
+
+												
+do{
+	
+if(choix==1){
+	nombre_de_produits=1;
+	}																																	
+for(int i=0;i<nombre_de_produits;i++){
+	Nbpro=Nbpro+1;
+System.out.println("\n\u001B[31m# Produit"+Nbpro+"\u001B[37m\n");
+
+System.out.print("Entrez la quantité: \n===>>> ");			qtcom[i]=rd.nextInt();																
+System.out.print("\nEntrez le prix du produit: \n===>>> ");	pu[i]=rd.nextDouble();																															tot[i]=(float)pu[i]*qtcom[i];			
+
+System.out.println("\nle prix ​​total sans redaction: \u001B[31m"+tot[i]+"DA\u001B[37m");			
+
+
+if(tot[i]<500){
+pl[i]=(float )(tot[i]*0.02);														 }	else{pl[i]=0;}									
+						
+System.out.println("le prix de livraison:\u001B[31m "+pl[i]+"DA	\u001B[37m");															
+																																	
+if(tot[i]>200 && tot[i]<1000){
+																					tr[i]=(float)(tot[i]*0.05);
+																					}else{	tr[i]=(float)(tot[i]*0.1);}							
+																					System.out.println("Prix de la réduction: \u001B[31m"+tr[i]+"DA\u001B[37m");															
+									
+																																					
+																					pap[i]=(float)(tot[i]+pl[i]-tr[i]);																																																				
+System.out.println("le prix qui payè de produit "+Nbpro+": \u001B[31m"+pap[i]+"DA	\u001B[37m");																														PrixTotal=(float )(PrixTotal+pap[i]);																															
+
+																			
+																																																															//Ecrire dans le fichier											
+																																																														
+																						wt.println("\n\n\n# Produit"+Nbpro+":");										
+wt.println("La quantité de produit: "+qtcom[i]+"DA");
+
+wt.println("le Prix ​​unitaire"+pu[i]+"DA");					
+	wt.println("le prix ​​total sans redaction: "+tot[i]+"DA");
+	
+																											
+wt.println("le prix de livraison: "+pl[i]+"DA");																							wt.println("Prix de la réduction: "+tr[i]+"DA");															
+		
+wt.println("le prix qui payè de produit "+Nbpro+":  "+pap[i]+"DA");									
+																					}		
+
+												
+System.out.println("\n\n\n\u001B[32mPrix ​​total payé pour tous les produits: "+PrixTotal+"DA\n\n	\u001B[37m");	
+
+																																																		wt.println("\n\n\nPrix ​​total payé pour tous les produits: "+PrixTotal+"DA");								
+
+System.out.print("\nEntrez 1------> pour saisir un nouveau produit.\nEntrez autre chose ----->pour Quiter.\n===>>>");
+choix=rd.nextInt();
+}while(choix==1);													
+
+																																										System.out.println("\n\n\u001B[32m********************| MERCI |********************	\u001B[37m\n\n");							
+																										
+	wt.close();																																									
+																																																																																																															
+	}
+}
