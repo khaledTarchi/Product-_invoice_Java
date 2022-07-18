@@ -1,3 +1,4 @@
+
 import java.util.*;
 import java.time.LocalDateTime;
 import java.io.*;
@@ -12,6 +13,7 @@ Scanner rd=new Scanner(System.in);
 
 System.out.println(" Entrez le nom du fichier: \n");
 System.out.print("===>>> ");
+
 
 String nomfichier=rd.nextLine();
 
@@ -37,15 +39,18 @@ nombre_de_produits=rd.nextInt();
 								
 										
 												
-double[] pu=new double[nombre_de_produits];
+double pu;
 
-int[] qtcom=new int[nombre_de_produits];
+int qtcom;
 
-double[] pl=new double[nombre_de_produits];double[] tr=new double[nombre_de_produits];double[] pap=new double[nombre_de_produits];double[] tot=new double[nombre_de_produits];
+double pl;
+double tr;double pap;
+double tot;
 
 int Nbpro=0;
 float PrixTotal=0;			
 int choix=5;
+
 
 
 PrintWriter wt=new PrintWriter(nomfichier,"UTF-8");
@@ -60,55 +65,62 @@ do{
 	
 if(choix==1){
 	nombre_de_produits=1;
-	}																																	
+	}																											
+							
 for(int i=0;i<nombre_de_produits;i++){
 	Nbpro=Nbpro+1;
 	
 System.out.println("\n\u001B[31m# Produit"+Nbpro+"\u001B[37m\n");
 
-System.out.print(" Entrez la quantité: \n===>>> ");			qtcom[i]=rd.nextInt();																
-System.out.print("\n Entrez le prix du produit: \n===>>> ");	pu[i]=rd.nextDouble();																															tot[i]=(float)pu[i]*qtcom[i];			
+System.out.print(" Entrez la quantité: \n===>>> ");		
+
+		qtcom=rd.nextInt();																
+System.out.print("\n Entrez le prix du produit: \n===>>> ");
+
+	pu=rd.nextDouble();													
+																			       tot=pu*qtcom;			
 
 
 
-System.out.printf("\nle prix ​​total sans redaction: \u001B[31m %.2f DA.\u001B[37m\n",tot[i]);			
+System.out.printf("\nle prix ​​total sans redaction: \u001B[31m %.2f DA.\u001B[37m\n",tot);			
 
 
-if(tot[i]<500){
-pl[i]=(float )(tot[i]*0.02);														 }	else{pl[i]=0;}									
-						
-System.out.printf("le prix de livraison:\u001B[31m %.2f DA.	\u001B[37m\n",pl[i]);															
+if(tot < 500){
+pl=(float )(tot*0.02);														 }	else{pl=0;}									
+
+												
+System.out.printf("le prix de livraison:\u001B[31m %.2f DA.	\u001B[37m\n",pl);															
 																																	
-if(tot[i]>200 && tot[i]<1000){
-																					tr[i]=(float)(tot[i]*0.05);
-																					}else{	tr[i]=(float)(tot[i]*0.1);}							
+if(tot >200 && tot<1000){
+																					tr=(float)(tot*0.05);
+																					}else{	tr=(float)(tot*0.1);}							
 									
-																					System.out.printf("Prix de la réduction: \u001B[31m %.2f DA.\u001B[37m\n",tr[i]);															
+																					System.out.printf("Prix de la réduction: \u001B[31m %.2f DA.\u001B[37m\n",tr);															
 									
 																																					
-																					pap[i]=(float)(tot[i]+pl[i]-tr[i]);																																																				
-System.out.printf("le prix qui payè de produit %d: \u001B[31m %.2f DA	\u001B[37m\n",Nbpro,pap[i]);																														PrixTotal=(float )(PrixTotal+pap[i]);																															
+																					pap=(float)(tot+pl-tr);																																																				
+System.out.printf("le prix qui payè de produit %d: \u001B[31m %.2f DA	\u001B[37m\n",Nbpro,pap);																														PrixTotal=(float )(PrixTotal+pap);																															
 
 																			
 																																																															//Ecrire dans le fichier											
 																																																														
 																						wt.println("\n\n\n# Produit"+Nbpro+":");										
-wt.printf("La quantité de produit: %d DA.\n",qtcom[i]);
+wt.printf("La quantité de produit: %d DA.\n",qtcom);
 
-wt.printf("le Prix ​​unitaire %.2f DA.\n",pu[i]);					
-	wt.printf("le prix ​​total sans redaction: %.2f DA.\n",tot[i]);
+wt.printf("le Prix ​​unitaire %.2f DA.\n",pu);					
+	wt.printf("le prix ​​total sans redaction: %.2f DA.\n",tot);
 	
 																											
-wt.printf("le prix de livraison: %.2f DA.\n",pl[i]);																						wt.printf("Prix de la réduction: %.2f DA.\n",tr[i]);							
+wt.printf("le prix de livraison: %.2f DA.\n",pl);																						wt.printf("Prix de la réduction: %.2f DA.\n",tr);							
 								
 		
-wt.printf("le prix qui payè de produit :  %.2f    DA.\n",pap[i],Nbpro);									
+wt.printf("le prix qui payè de produit :  %.2f    DA.\n",pap,Nbpro);									
 																					}		
 
 												
-System.out.printf("\n\n\n\u001B[32mPRIX TOTAL PAYÉ POUR TOUS LES PRODUITS: %.2f DA.\n\n	\u001B[37m\n",PrixTotal);	
+System.out.printf("\n\n\n\u001B[32mLE PRIX TOTAL PAYÉ POUR TOUS LES PRODUITS: %.2f DA.\n\n	\u001B[37m\n",PrixTotal);	
 
-																																																		wt.printf("\n\n\nPRIX ​​TOTAL PAYÉ POUR TOUS LES PRODUITS: %.2f DA.\n",PrixTotal);					
+																																																		wt.printf("\n\n\nLE PRIX ​​TOTAL PAYÉ POUR TOUS LES PRODUITS: %.2f DA.\n",PrixTotal);					
 																																																					
 
 System.out.print("\n Entrez 1 ---------------> pour saisir un nouveau produit.\n Entrez autre chose -----> pour Quiter.\n\n===>>> ");
