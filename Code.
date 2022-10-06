@@ -1,7 +1,11 @@
-
-import java.util.*;
+import java.io.File;  
+import java.io.PrintWriter;
+import java.io.IOException;
+import java.util.Scanner;
 import java.time.LocalDateTime;
-import java.io.*;
+import java.time.format.DateTimeFormatter; 
+import java.io.PrintWriter;
+
 
 public class Main {
 public static void main(String[] args) throws IOException{
@@ -55,10 +59,16 @@ char choix='5';
 
 PrintWriter wt=new PrintWriter(nomfichier,"UTF-8");
 
+//time
 LocalDateTime myObj = LocalDateTime.now();
+DateTimeFormatter myFormatObj = DateTimeFormatter.ofPattern("dd-MM-yyyy HH:mm:ss");
+String forma = myObj.format(myFormatObj);  
    
+    
+     
+       
 wt.println("\n\n******************| FACTURE |******************\n\n");		
-wt.println("  "+myObj);							
+wt.println("  "+forma);							
 
 												
 do{
@@ -104,7 +114,7 @@ System.out.printf(" le prix qui payè de produit %d: \u001B[31m %.2f DA	\u001B[3
 																			
 																																																															//Ecrire dans le fichier											
 																																																														
-																						wt.println("\n\n\n# Produit"+Nbpro+":");										
+																						wt.println("\n\n\n# PRODUIT"+Nbpro+":\n");										
 wt.printf("La quantité de produit: %d DA.\n",qtcom);
 
 wt.printf("le prix ​​unitaire: %.2f DA.\n",pu);					
@@ -120,7 +130,7 @@ wt.printf("le prix qui payè de produit :  %.2f DA.\n",pap,Nbpro);
 												
 System.out.printf("\n\n\n\n\u001B[32mLE PRIX TOTAL PAYÉ POUR TOUS LES PRODUITS: %.2f DA.\n\n	\u001B[37m\n\n",PrixTotal);	
 
-																																																		wt.printf("\n\n\n  LE PRIX ​​TOTAL PAYÉ POUR TOUS LES PRODUITS: %.2f DA.\n",PrixTotal);					
+																																																		wt.printf("\n\n\n\n  LE PRIX ​​TOTAL PAYÉ POUR TOUS LES PRODUITS: %.2f DA.\n",PrixTotal);					
 																																																					
 
 System.out.print("\n Entrez 1 ---------------> pour saisir un nouveau produit.\n Entrez autre chose -----> pour Quiter.\n\n===>>> ");
@@ -132,8 +142,7 @@ choix=rd.next().charAt(0);
 																																										System.out.println("\n\n\u001B[32m***********************| MERCI |***********************	\u001B[37m\n\n");							
 																					
 																					wt.println("\n\n\n\n************************************************");					
-	rd.close();																								rd.close();									
-	wt.close();	
-																																																												
+																									rd.close();									
+	wt.close();																																																													
 	}
 }
