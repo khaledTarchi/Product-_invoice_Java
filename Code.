@@ -13,9 +13,8 @@ public static void main(String[] args) throws IOException{
 /*------declaration ta3 Scanner-------*/	
 Scanner rd=new Scanner(System.in);
 
-/*------Bienvenu ------*/											System.out.println("\n\n\u001B[32m*********************| BIENVENUE |*********************\u001B[37m\n");							
-									
-
+/*------Bienvenu ------*/
+System.out.println("\n\n\u001B[32m*********************| BIENVENUE |*********************\u001B[37m\n");										
 
 
 /*---------Creation ta3 lfichier ------- */
