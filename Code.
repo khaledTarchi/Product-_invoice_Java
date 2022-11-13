@@ -10,32 +10,34 @@ import java.io.PrintWriter;
 public class Main {
 public static void main(String[] args) throws IOException{
 	
+/*------declaration ta3 Scanner-------*/	
 Scanner rd=new Scanner(System.in);
 
-																		System.out.println("\n\n\u001B[32m********************| Bienvenue |********************	\u001B[37m\n");							
+/*------Bienvenu ------*/											System.out.println("\n\n\u001B[32m*********************| BIENVENUE |*********************\u001B[37m\n");							
 									
 
-System.out.println(" Entrez le nom du fichier: \n");
-System.out.print("===>>> ");
 
 
-String nomfichier=rd.nextLine();
+/*---------Creation ta3 lfichier ------- */
+String nomfich="My Company Service(MCS).txt";
 
-File obj=new File(nomfichier);
+File obj=new File(nomfich);
 
 
 if(obj.createNewFile()){
 	
-System.out.println("\n\u001B[33mUn nouveau fichier a été créé\u001B[37m\n");
-}else {System.out.println("\n\u001B[33m Le fichier existe déjà\u001B[37m\n");}
+System.out.println("\n\u001B[33mUn nouveau fichier a été créé.\u001B[37m\n");
+}else {System.out.println("\n\u001B[33m Le fichier existe déjà.\u001B[37m\n");}
+
 
 		
+
+/* nedo 3la lutilsateur Nombr de produit*/												
 int nombre_de_produits;
 
-
 do{
-	
-System.out.println(" Saisissez le nombre de produits (au moins trois) :  \n ");
+    
+System.out.println("Saisissez le nombre de produits (au moins trois) :  \n ");
 System.out.print("===>>> ");
 nombre_de_produits=rd.nextInt();
 
@@ -43,44 +45,41 @@ nombre_de_produits=rd.nextInt();
 								
 										
 												
-double pu;
+double pu,pl,tr,pap,tot;
 
 int qtcom;
-
-double pl;
-double tr;double pap;
-double tot;
-
 int Nbpro=0;
 float PrixTotal=0;			
 char choix='5';
 
 
 
-PrintWriter wt=new PrintWriter(nomfichier,"UTF-8");
+PrintWriter wt=new PrintWriter(nomfich,"UTF-8");
 
-//time
+
+/*ndiro la date li da5al fiha lutilsateur*/
 LocalDateTime myObj = LocalDateTime.now();
 DateTimeFormatter myFormatObj = DateTimeFormatter.ofPattern("dd-MM-yyyy HH:mm:ss");
 String forma = myObj.format(myFormatObj);  
    
-    
+  
      
-       
-wt.println("\n\n******************| FACTURE |******************\n\n");		
-wt.println("  "+forma);							
+/*nektbo fel fichier l3onwan w la date..ex*/       
+wt.println("\n\n******************| FACTURE |******************\n\n");	
+wt.println("My Company Service (MCS)\n\n");
+wt.println("    "+forma);							
+
 
 												
 do{
 	
 if(choix=='1'){
 	nombre_de_produits=1;
-	}																											
-							
+	}																																	
 for(int i=0;i<nombre_de_produits;i++){
 	Nbpro=Nbpro+1;
-	
-System.out.println("\n\u001B[31m# Produit"+Nbpro+"\u001B[37m\n");
+System.out.println("\n-------------------------------------------------------");	
+System.out.println("\n\n\u001B[31m● Produit "+Nbpro+"\u001B[37m\n");
 
 System.out.print(" Entrez la quantité: \n===>>> ");		
 
@@ -92,33 +91,30 @@ System.out.print("\n Entrez le prix du produit: \n===>>> ");
 
 
 
-System.out.printf("\n le prix ​​total sans redaction: \u001B[31m %.2f DA.\u001B[37m\n",tot);			
+System.out.printf("\n le prix ​​total sans redaction et sans livraison: \u001B[31m %.2f DA.\u001B[37m\n",tot);			
 
 
-if(tot < 500){
-pl=tot*0.02;														 }	else{pl=0;}									
-
-												
+/*prix de livraison*/
+if(tot <= 500){
+pl=tot*0.02;	 }	else{pl=0;}									
+											
 System.out.printf(" le prix de livraison:\u001B[31m %.2f DA.	\u001B[37m\n",pl);															
-																																	
-if(tot >200 && tot<1000){
-																					tr=tot*0.05;
-																					}else{	tr=tot*0.1;}							
-									
+																					/*prix de la redaction*/											
+if(tot >=200 && tot<=1000){										tr=tot*0.05;																}else{	tr=tot*0.1;}							
 																					System.out.printf(" le prix de la réduction: \u001B[31m %.2f DA.\u001B[37m\n",tr);															
 									
 																																					
 																					pap=tot+pl-tr;																																																				
-System.out.printf(" le prix qui payè de produit %d: \u001B[31m %.2f DA	\u001B[37m\n",Nbpro,pap);																														PrixTotal=(float )(PrixTotal+pap);																															
+System.out.printf(" le prix qui payè de produit %d: \u001B[31m %.2f DA	\u001B[37m\n\n",Nbpro,pap);																														PrixTotal=(float )(PrixTotal+pap);																															
 
 																			
 																																																															//Ecrire dans le fichier											
 																																																														
-																						wt.println("\n\n\n# PRODUIT"+Nbpro+":\n");										
+																						wt.println("\n\n\n● PRODUIT "+Nbpro+":\n");										
 wt.printf("La quantité de produit: %d DA.\n",qtcom);
 
 wt.printf("le prix ​​unitaire: %.2f DA.\n",pu);					
-	wt.printf("le prix ​​total sans redaction: %.2f DA.\n",tot);
+	wt.printf("le prix ​​total sans redaction et sans livraison: %.2f DA.\n",tot);
 	
 																											
 wt.printf("le prix de livraison: %.2f DA.\n",pl);																						wt.printf("le prix de la réduction: %.2f DA.\n",tr);							
@@ -130,7 +126,7 @@ wt.printf("le prix qui payè de produit :  %.2f DA.\n",pap,Nbpro);
 												
 System.out.printf("\n\n\n\n\u001B[32mLE PRIX TOTAL PAYÉ POUR TOUS LES PRODUITS: %.2f DA.\n\n	\u001B[37m\n\n",PrixTotal);	
 
-																																																		wt.printf("\n\n\n\n  LE PRIX ​​TOTAL PAYÉ POUR TOUS LES PRODUITS: %.2f DA.\n",PrixTotal);					
+																																										/*wt.printf("\n\n\n\n  LE PRIX ​​TOTAL PAYÉ POUR TOUS LES PRODUITS: %.2f DA.\n",PrixTotal);	*/				
 																																																					
 
 System.out.print("\n Entrez 1 ---------------> pour saisir un nouveau produit.\n Entrez autre chose -----> pour Quiter.\n\n===>>> ");
@@ -138,11 +134,15 @@ System.out.print("\n Entrez 1 ---------------> pour saisir un nouveau produit.\n
 choix=rd.next().charAt(0);
 
 }while(choix=='1');													
+wt.printf("\n\n\n\n  LE PRIX ​​TOTAL PAYÉ POUR TOUS LES PRODUITS: %.2f DA.\n",PrixTotal);	
 
-																																										System.out.println("\n\n\u001B[32m***********************| MERCI |***********************	\u001B[37m\n\n");							
+
+
+																																										System.out.println("\n\n\u001B[32m*************************| MERCI |************************* \u001B[37m\n\n");							
 																					
 																					wt.println("\n\n\n\n************************************************");					
-																									rd.close();									
+
+																																																		rd.close();									
 	wt.close();																																																													
 	}
 }
