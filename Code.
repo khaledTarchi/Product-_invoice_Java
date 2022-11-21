@@ -1,6 +1,7 @@
 import java.io.File;  
 import java.io.PrintWriter;
 import java.io.IOException;
+import java.io.FileNotFoundException;
 import java.util.Scanner;
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter; 
@@ -13,23 +14,47 @@ public static void main(String[] args) throws IOException{
 /*------declaration ta3 Scanner-------*/	
 Scanner rd=new Scanner(System.in);
 
-/*------Bienvenu ------*/
-System.out.println("\n\n\u001B[32m*********************| BIENVENUE |*********************\u001B[37m\n");										
+/*------Bienvenu ------*/											System.out.println("\n\n\u001B[32m*********************| BIENVENUE |*********************\u001B[37m\n");							
+									
+
 
 
 /*---------Creation ta3 lfichier ------- */
 String nomfich="My Company Service(MCS).txt";
-
+String data=" ";
+int cmp=1;
+try{
 File obj=new File(nomfich);
-
 
 if(obj.createNewFile()){
 	
 System.out.println("\n\u001B[33mUn nouveau fichier a été créé.\u001B[37m\n");
-}else {System.out.println("\n\u001B[33m Le fichier existe déjà.\u001B[37m\n");}
+}else {System.out.println("\n\u001B[33m Le fichier existe déjà.\u001B[37m\n");
+Scanner Rd2=new Scanner(obj);
 
 
+while (Rd2.hasNextLine()){
+        data = data+Rd2.nextLine()+"\n";
+      }
 		
+Rd2.close();
+obj.delete();
+cmp=2;
+
+}
+
+
+
+
+}catch(FileNotFoundException e){
+ e.printStackTrace();   
+}
+
+
+if(cmp==2){
+File obj1=new File(nomfich);
+}
+
 
 /* nedo 3la lutilsateur Nombr de produit*/												
 int nombre_de_produits;
@@ -45,7 +70,6 @@ nombre_de_produits=rd.nextInt();
 										
 												
 double pu,pl,tr,pap,tot;
-
 int qtcom;
 int Nbpro=0;
 float PrixTotal=0;			
@@ -55,6 +79,7 @@ char choix='5';
 
 PrintWriter wt=new PrintWriter(nomfich,"UTF-8");
 
+wt.print(data);
 
 /*ndiro la date li da5al fiha lutilsateur*/
 LocalDateTime myObj = LocalDateTime.now();
@@ -63,8 +88,12 @@ String forma = myObj.format(myFormatObj);
    
   
      
-/*nektbo fel fichier l3onwan w la date..ex*/       
+/*nektbo fel fichier l3onwan w la date..ex*/ 
+if(cmp==1){      
 wt.println("\n\n******************| FACTURE |******************\n\n");	
+}else{
+wt.println("************************************************");
+}
 wt.println("My Company Service (MCS)\n\n");
 wt.println("    "+forma);							
 
