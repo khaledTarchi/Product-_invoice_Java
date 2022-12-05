@@ -21,25 +21,59 @@ Scanner rd=new Scanner(System.in);
 
 /*---------Creation ta3 lfichier ------- */
 String nomfich="My Company Service(MCS).txt";
-String data=" ";
-int cmp=1;
+String data="\n";
+String data2="\n";
+int cmp=0;
+int cmp2=0;
+float PrixTotal=0;	
+int t=0;
 try{
+    
+    
 File obj=new File(nomfich);
 
+
 if(obj.createNewFile()){
-	
+	t=1;
 System.out.println("\n\u001B[33mUn nouveau fichier a été créé.\u001B[37m\n");
-}else {System.out.println("\n\u001B[33m Le fichier existe déjà.\u001B[37m\n");
+
+}else {
+    
+    System.out.println("\n\u001B[33m Le fichier existe déjà.\u001B[37m\n");
+    
 Scanner Rd2=new Scanner(obj);
-
-
 while (Rd2.hasNextLine()){
         data = data+Rd2.nextLine()+"\n";
-      }
-		
+      }		
 Rd2.close();
+
+
+Scanner Rd3=new Scanner(obj);
+while(Rd3.hasNext()){
+data2=Rd3.next();
+if(data2.equals("●PRODUIT")){
+ cmp++; }} 
+Rd3.close();
+
+
+Scanner Rd4=new Scanner(obj);
+while(Rd4.hasNext()){
+data2=Rd4.next();
+
+if(data2.equals("●PRODUIT")){
+ cmp2++; }
+
+if(data2.equals("PRODUITS:")&& cmp2==cmp){
+ data2=Rd4.next();
+ PrixTotal=Float.valueOf(data2);
+ break; }        
+}
+
+
+
 obj.delete();
-cmp=2;
+
+File obj1=new File(nomfich);
 
 }
 
@@ -47,37 +81,41 @@ cmp=2;
 
 
 }catch(FileNotFoundException e){
- e.printStackTrace();   
-}
+ e.printStackTrace();  }
 
-
-if(cmp==2){
-File obj1=new File(nomfich);
-}
 
 
 /* nedo 3la lutilsateur Nombr de produit*/												
-int nombre_de_produits;
+int NBP;
 
 do{
     
 System.out.println("Saisissez le nombre de produits (au moins trois) :  \n ");
 System.out.print("===>>> ");
-nombre_de_produits=rd.nextInt();
+NBP=rd.nextInt();
 
-						}while(nombre_de_produits<3);			
+						}while(NBP<3);			
+
 								
+																
+																				
+												
+	
 										
 												
 double pu,pl,tr,pap,tot;
 int qtcom;
 int Nbpro=0;
-float PrixTotal=0;			
+Nbpro=cmp;		
 char choix='5';
 
 
 
 PrintWriter wt=new PrintWriter(nomfich,"UTF-8");
+
+
+
+
 
 wt.print(data);
 
@@ -89,8 +127,8 @@ String forma = myObj.format(myFormatObj);
   
      
 /*nektbo fel fichier l3onwan w la date..ex*/ 
-if(cmp==1){      
-wt.println("\n\n******************| FACTURE |******************\n\n");	
+if(t==1){      
+wt.println("******************| FACTURE |******************\n\n");	
 }else{
 wt.println("************************************************");
 }
@@ -102,12 +140,12 @@ wt.println("    "+forma);
 do{
 	
 if(choix=='1'){
-	nombre_de_produits=1;
+	NBP=1;
 	}																																	
-for(int i=0;i<nombre_de_produits;i++){
+for(int i=0;i<NBP;i++){
 	Nbpro=Nbpro+1;
 System.out.println("\n-------------------------------------------------------");	
-System.out.println("\n\n\u001B[31m● Produit "+Nbpro+"\u001B[37m\n");
+System.out.println("\n\n\u001B[31m ●Produit "+Nbpro+"\u001B[37m\n");
 
 System.out.print(" Entrez la quantité: \n===>>> ");		
 
@@ -138,7 +176,7 @@ System.out.printf(" le prix qui payè de produit %d: \u001B[31m %.2f DA	\u001B[3
 																			
 																																																															//Ecrire dans le fichier											
 																																																														
-																						wt.println("\n\n\n● PRODUIT "+Nbpro+":\n");										
+																						wt.println("\n\n\n●PRODUIT "+Nbpro+":\n");										
 wt.printf("La quantité de produit: %d DA.\n",qtcom);
 
 wt.printf("le prix ​​unitaire: %.2f DA.\n",pu);					
